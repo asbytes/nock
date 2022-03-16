@@ -35,6 +35,7 @@ For instance, if a module performs HTTP requests to a CouchDB server or makes HT
     - [Header field names are case-insensitive](#header-field-names-are-case-insensitive)
     - [Specifying Request Headers](#specifying-request-headers)
     - [Specifying Reply Headers](#specifying-reply-headers)
+    - [Specifying Multiple Set-Cookie Headers](#specifying-multiple-set-cookie-headers)
     - [Default Reply Headers](#default-reply-headers)
     - [Including Content-Length Header Automatically](#including-content-length-header-automatically)
     - [Including Date Header Automatically](#including-date-header-automatically)
@@ -543,6 +544,21 @@ const scope = nock('http://www.headdy.com')
   .reply(200, 'Hello World!', {
     'Content-Length': (req, res, body) => body.length,
     ETag: () => `${Date.now()}`,
+  })
+```
+
+#### Specifying Multiple Set-Cookie Headers
+
+You can specify multiple set-cookie headers like this:
+
+```js
+const scope = nock('http://www.headdy.com')
+  .get('/')
+  .reply(200, 'Hello World!', {
+    'Set-Cookie': [
+      "cookie1=value1",
+      "cookie2=value2",
+    ],
   })
 ```
 
